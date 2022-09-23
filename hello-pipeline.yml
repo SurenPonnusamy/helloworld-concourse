@@ -56,8 +56,8 @@ jobs:
 - name: hello-job
   plan:
   - get: helloworld
-    trigger: true
-  - task: input-type    
+    trigger: true  
+  - task: input-type
     params:
       greeting: "Hello, from input"
     config:
@@ -66,7 +66,11 @@ jobs:
         type: registry-image
         source:
           repository: docker.io/surendharselvakumar/helloworld
+          username: surendharselvakumar
+          password: Suren2302%
           tag: latest
+      inputs:
+      - name: helloworld           
       run:
         path: ls
   - put: helloworld
