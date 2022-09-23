@@ -56,7 +56,7 @@ jobs:
 - name: hello-job
   plan:
   - get: helloworld
-    trigger: false
+    trigger: true
     resource: helloworld
     inputs:
          - helloworld
