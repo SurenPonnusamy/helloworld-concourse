@@ -1,6 +1,6 @@
 FROM alpine:3.13
 
-RUN apk add --update --upgrade --no-cache bash
+RUN apk add --update --upgrade --no-cache bash aws-cli
 
 RUN apk update \
     && apk upgrade \
