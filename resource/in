@@ -35,7 +35,6 @@ echo "Param region says: $source_region" >&2
 
 aws --version
 echo $source_region 
-export $source_region
 aws configure set default.region $source_region
 # aws configure get default.region
 # aws configure set default.region $param_region
