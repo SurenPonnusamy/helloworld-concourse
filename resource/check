@@ -1,5 +1,5 @@
 #!/bin/bash
-set -eu
+# set -eu
 # set -o pipefail
 echo '[{ "revision": "N/A",  "message": "The check script says Hello World!" }]'
 exec 3>&1 # make stdout available as fd 3 for the result
@@ -7,12 +7,12 @@ exec 1>&2 # redirect all output to stderr for logging
 
 echo "Echo says hi from the out script!" >&2
 
-source=$1
+# source=$1
 
-if [[ -z "$source" ]]; then
-  echo "usage: $0 <path/to/source>"
-  exit 1
-fi
+# if [[ -z "$source" ]]; then
+  # echo "usage: $0 <path/to/source>"
+  # exit 1
+# fi
 
 # for jq
 PATH=/usr/local/bin:$PATH
