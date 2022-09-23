@@ -1,8 +1,8 @@
 #!/bin/bash
 echo '[{ "revision": "N/A",  "message": "The check script says Hello World!" }]'
-export TMPDIR=${TMPDIR:-/tmp/check}
-mkdir -p "${TMPDIR}"
+# export TMPDIR=${TMPDIR:-/tmp/hello}
+# mkdir -p "${TMPDIR}"
 
-payload=$(mktemp "$TMPDIR/resource-request.XXXXXX")
-date > $payload
-cat $payload
+# payload=$(mktemp "$TMPDIR/resource-request.XXXXXX")
+# cat < date > $payload
+# cat $payload
