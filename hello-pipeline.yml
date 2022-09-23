@@ -10,10 +10,15 @@ resource_types:
 resources:
 - name: helloworld
   type: helloworld
-  check_every: 1s  
+  check_every: 1s
+  source:
+    aws_access_key: "test_aws_access_key"  
+    aws_secret_key: "test_aws_secret_key"
+    region        : ((region))
   
 - name: repo
   type: git
+  check_every: 1s
   source:
     uri: https://github.com/SurenPonnusamy/helloworld-concourse
     branch: main
@@ -55,24 +60,35 @@ jobs:
       
 - name: hello-job
   plan:
-  - get: helloworld
-    trigger: true  
+  - get: helloworld    
+  - get: repo    
+    trigger: false
+    params:      
+      aws_access_key: "test_aws_access_key"  
+      aws_secret_key: "test_aws_secret_key"
+      region: "us-west-2"     
   - task: input-type
-    params:
-      greeting: "Hey y'all!"
     config:
       platform: linux
       image_resource:
         type: registry-image
         source:
           repository: docker.io/surendharselvakumar/helloworld
-          username: surendharselvakumar
-          password: Suren2302%
-          tag: latest
       inputs:
-      - name: helloworld           
+      - name: helloworld
+      - name: repo
       run:
-        path: ls
+        path: sh        
+        args: 
+        - -cx
+        - |
+          uname -a
+          ls -lasrt .
+          ls helloworld
+          ls /tmp        
+          aws configure get default.region          
+          echo ((region))
+ 
   - put: helloworld
     resource: helloworld
     inputs:
