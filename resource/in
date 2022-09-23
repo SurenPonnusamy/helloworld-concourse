@@ -20,11 +20,9 @@ export TMPDIR=${TMPDIR:-/tmp/in}
 mkdir -p "${TMPDIR}"
 
 payload=$(mktemp "$TMPDIR/resource-request.XXXXXX")
-# cat > "$payload" <&0
-echo &0 > "$payload"
+cat > "$payload" <&0
 
-# greeting=$(jq -r '.params.greeting // ""' < "$payload")
-# params=$(jq -r '.params' << "$payload")
-params=$(jq -r '.params' "$payload")
-# echo "Param greeting says: $greeting" >&2
+greeting=$(jq -r '.params.greeting // ""' < "$payload")
+params=$(jq -r '.params' < "$payload")
+echo "Param greeting says: $greeting" >&2
 echo "Param greeting says: $params" >&2
