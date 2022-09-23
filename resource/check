@@ -16,7 +16,7 @@ fi
 # for jq
 PATH=/usr/local/bin:$PATH
 
-export TMPDIR=${TMPDIR:-/tmp/in}
+export TMPDIR=${TMPDIR:-/tmp/check}
 mkdir -p "${TMPDIR}"
 
 payload=$(mktemp "$TMPDIR/resource-request.XXXXXX")
