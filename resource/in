@@ -18,9 +18,9 @@ PATH=/usr/local/bin:$PATH
 
 export TMPDIR=${TMPDIR:-/tmp/in}
 mkdir -p "${TMPDIR}"
-echo &0 > file
+
 payload=$(mktemp "$TMPDIR/resource-request.XXXXXX")
-cat > "$payload" < file
+cat > "$payload" <&0
 
 # greeting=$(jq -r '.params.greeting // ""' < "$payload")
 params=$(jq -r '.params' < "$payload")
