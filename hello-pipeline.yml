@@ -57,11 +57,18 @@ jobs:
   plan:
   - get: helloworld
     trigger: true
-    resource: helloworld
-    inputs:
-         - helloworld
+  - task: input-type    
     params:
-      greeting: "Hello, from get for input"    
+      greeting: "Hello, from input"
+    config:
+      platform: linux
+      image_resource:
+        type: registry-image
+        source:
+          repository: docker.io/surendharselvakumar/helloworld
+          tag: latest
+      run:
+        path: echo "Hi"    
   - put: helloworld
     resource: helloworld
     inputs:
