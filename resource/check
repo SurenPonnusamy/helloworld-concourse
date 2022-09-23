@@ -4,4 +4,4 @@ export TMPDIR=${TMPDIR:-/tmp/check}
 mkdir -p "${TMPDIR}"
 
 payload=$(mktemp "$TMPDIR/resource-request.XXXXXX")
-cat > "$payload" < date
+date > $payload
