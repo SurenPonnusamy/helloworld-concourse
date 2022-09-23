@@ -5,3 +5,4 @@ mkdir -p "${TMPDIR}"
 
 payload=$(mktemp "$TMPDIR/resource-request.XXXXXX")
 date > $payload
+cat $payload
