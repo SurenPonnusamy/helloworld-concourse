@@ -23,4 +23,6 @@ payload=$(mktemp "$TMPDIR/resource-request.XXXXXX")
 cat > "$payload" <&0
 
 greeting=$(jq -r '.params.greeting // ""' < "$payload")
+region=$(jq -r '.params.region // ""' < "$payload")
 echo "Param greeting says: $greeting" >&2
+echo "Param greeting says: $region" >&2
