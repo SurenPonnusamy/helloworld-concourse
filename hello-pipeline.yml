@@ -59,7 +59,7 @@ jobs:
     trigger: true  
   - task: input-type
     params:
-      greeting: "Hello, from input"
+      greeting: "Hey y'all!"
     config:
       platform: linux
       image_resource:
