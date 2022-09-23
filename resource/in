@@ -24,7 +24,8 @@ cat > "$payload" <&0
 
 # greeting=$(jq -r '.params.greeting // ""' < "$payload")
 # params=$(jq -r '.params' < "$payload")
-# source=$(jq -r '.source' < "$payload")
+source=$(jq -r '.source' < "$payload")
+source_region=$(jq -r '.source.region' < "$payload")
 params=$(jq -r '.params' < "$payload")
 param_region=$(jq -r '.params.region' < "$payload")
 # echo "Param greeting says: $greeting" >&2
@@ -33,5 +34,7 @@ echo "Param region says: $param_region" >&2
 # echo "source says: $source" >&2
 
 aws --version
-aws configure set default.region $param_region
-aws configure get default.region
+aws configure set default.region $source_region
+# aws configure get default.region
+# aws configure set default.region $param_region
+# aws configure get default.region
