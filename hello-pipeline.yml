@@ -68,7 +68,7 @@ jobs:
           repository: docker.io/surendharselvakumar/helloworld
           tag: latest
       run:
-        path: echo "Hi"    
+        path: ls
   - put: helloworld
     resource: helloworld
     inputs:
