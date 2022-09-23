@@ -13,6 +13,8 @@ if [[ -z "$source" ]]; then
   exit 1
 fi
 
+apk add aws-cli
+
 # for jq
 PATH=/usr/local/bin:$PATH
 
