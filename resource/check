@@ -6,22 +6,22 @@ exec 1>&2 # redirect all output to stderr for logging
 
 echo "Echo says hi from the check script!" >&2
 
-source=$1
+# source=$1
 
-if [[ -z "$source" ]]; then
-  echo "usage: $0 <path/to/source>"
-  exit 1
-fi
+# if [[ -z "$source" ]]; then
+  # echo "usage: $0 <path/to/source>"
+  # exit 1
+# fi
 
 # for jq
-PATH=/usr/local/bin:$PATH
+# PATH=/usr/local/bin:$PATH
 
-export TMPDIR=${TMPDIR:-/tmp/check}
-mkdir -p "${TMPDIR}"
+# export TMPDIR=${TMPDIR:-/tmp/check}
+# mkdir -p "${TMPDIR}"
 
-payload=$(mktemp "$TMPDIR/resource-request.XXXXXX")
-cat > "$payload" <&0
+# payload=$(mktemp "$TMPDIR/resource-request.XXXXXX")
+# cat > "$payload" <&0
 
 
-source=$(jq -r '.source' < "$payload")
-echo "source says: $source" >&2
+# source=$(jq -r '.source' < "$payload")
+# echo "source says: $source" >&2

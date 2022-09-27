@@ -29,6 +29,7 @@ source_region=$(jq -r '.source.region' < "$payload")
 params=$(jq -r '.params' < "$payload")
 param_region=$(jq -r '.params.region' < "$payload")
 # echo "Param greeting says: $greeting" >&2
+echo "$source" >&2
 echo "Param greeting says: $params" >&2
 echo "Param region says: $param_region" >&2
 echo "source says: $source" >&2
