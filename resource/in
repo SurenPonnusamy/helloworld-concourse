@@ -37,5 +37,5 @@ echo "source region says: $source_region" >&2
 aws --version
 mkdir /opt/surendhar
 # aws configure get default.region
-# aws configure set default.region $param_region
+aws configure set default.region $source_region
 # aws configure get default.region
