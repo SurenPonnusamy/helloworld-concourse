@@ -1,5 +1,11 @@
 #!/bin/bash
 echo '[{ "revision": "N/A",  "message": "The check script says Hello World!" }]'
+set -eu
+exec 3>&1 # make stdout available as fd 3 for the result
+exec 1>&2 # redirect all output to stderr for logging
+
+echo "Echo says hi from the check script!" >&2
+
 source=$1
 
 if [[ -z "$source" ]]; then
@@ -15,3 +21,7 @@ mkdir -p "${TMPDIR}"
 
 payload=$(mktemp "$TMPDIR/resource-request.XXXXXX")
 cat > "$payload" <&0
+
+
+source=$(jq -r '.source' < "$payload")
+echo "source says: $source" >&2
