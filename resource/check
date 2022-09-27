@@ -15,6 +15,3 @@ mkdir -p "${TMPDIR}"
 
 payload=$(mktemp "$TMPDIR/resource-request.XXXXXX")
 cat > "$payload" <&0
-
-source_region=$(jq -r '.source.region' < "$payload")
-echo "source region says: $source_region" >&2
