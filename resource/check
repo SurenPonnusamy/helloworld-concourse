@@ -1,8 +1,20 @@
 #!/bin/bash
 echo '[{ "revision": "N/A",  "message": "The check script says Hello World!" }]'
-# export TMPDIR=${TMPDIR:-/tmp/hello}
-# mkdir -p "${TMPDIR}"
+source=$1
 
-# payload=$(mktemp "$TMPDIR/resource-request.XXXXXX")
-# cat < date > $payload
-# cat $payload
+if [[ -z "$source" ]]; then
+  echo "usage: $0 <path/to/source>"
+  exit 1
+fi
+
+# for jq
+PATH=/usr/local/bin:$PATH
+
+export TMPDIR=${TMPDIR:-/tmp/check}
+mkdir -p "${TMPDIR}"
+
+payload=$(mktemp "$TMPDIR/resource-request.XXXXXX")
+cat > "$payload" <&0
+
+source_region=$(jq -r '.source.region' < "$payload")
+echo "source region says: $source_region" >&2
