@@ -14,7 +14,7 @@ resources:
   source:
     aws_access_key: "test_aws_access_key"  
     aws_secret_key: "test_aws_secret_key"
-    region        : ((region))
+    region        : ((region))        
   
 - name: repo
   type: git
@@ -24,74 +24,65 @@ resources:
     branch: main
     private_key: ((private_key))
   
-- name: docker-resource-type
-  type: registry-image
-  source: 
-    repository: docker.io/surendharselvakumar/helloworld
-    username: surendharselvakumar
-    password: Suren2302%
-    tag: latest  
+# - name: docker-resource-type
+  # type: registry-image
+  # source: 
+    # repository: docker.io/surendharselvakumar/helloworld
+    # username: surendharselvakumar
+    # password: Suren2302%
+    # tag: latest  
 
 jobs:      
-- name: build-docker-image
-  plan:
-  - get: repo
-    trigger: true
-  - task: build-docker-resource-type
-    privileged: true
-    params:
-      DOCKERFILE: Dockerfile
-    config: 
-      platform: linux
-      image_resource:
-        type: registry-image
-        source:
-          repository: concourse/oci-build-task
-      inputs:
-      - name: repo
-        path: .
-      outputs:
-      - name: image
-      run:
-        path: build
-  - put: docker-resource-type
-    params:
-      image: image/image.tar  
+# - name: build-docker-image
+  # plan:
+  # - get: repo
+    # trigger: true  
+  # - task: build-docker-resource-type
+    # privileged: true
+    # params:
+      # DOCKERFILE: Dockerfile
+    # config: 
+      # platform: linux
+      # image_resource:
+        # type: registry-image
+        # source:
+          # repository: concourse/oci-build-task
+      # inputs:
+      # - name: repo
+        # path: .
+      # outputs:
+      # - name: image
+      # run:
+        # path: build
+  # - put: docker-resource-type
+    # params:
+      # image: image/image.tar  
       
 - name: hello-job
   plan:
+  - get: repo
+    trigger: true  
+    # passed: [build-docker-image]       
   - get: helloworld    
-  - get: repo    
-    trigger: false
-    params:      
-      aws_access_key: "test_aws_access_key"  
-      aws_secret_key: "test_aws_secret_key"
-      region: "us-west-2"     
+    trigger: false        
   - task: input-type
+    params:
+      region: ((region))
     config:
       platform: linux
       image_resource:
         type: registry-image
         source:
           repository: docker.io/surendharselvakumar/helloworld
-      inputs:
-      - name: helloworld
+      inputs:      
       - name: repo
       run:
         path: sh        
         args: 
         - -cx
         - |
-          uname -a
-          ls -lasrt .
-          ls helloworld
-          ls /tmp        
-          aws configure get default.region          
-          echo ((region))
- 
-  - put: helloworld
-    resource: helloworld
-    inputs:
-         - helloworld
-    params:
-      greeting: "Hey y'all!"
+          env
+          aws --version
+          ls -lasrt /opt/
+          # aws configure set default.region ((region))
+          # aws configure get default.region
